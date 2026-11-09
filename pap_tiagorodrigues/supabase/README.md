@@ -1,0 +1,83 @@
+# Configuração do Supabase
+
+## 1. Criar o projeto
+
+1. Abre [supabase.com](https://supabase.com) e cria uma conta.
+2. Seleciona **New project**.
+3. Escolhe um nome, uma palavra-passe forte para a base de dados e uma região próxima de Portugal.
+4. Aguarda até o projeto ficar pronto.
+
+## 2. Criar a base de dados
+
+1. No painel do projeto, abre **SQL Editor**.
+2. Cria uma nova query.
+3. Copia todo o conteúdo de [`schema.sql`](./schema.sql) e carrega em **Run**.
+4. Copia também [`municipal_schema.sql`](./municipal_schema.sql) e carrega em **Run**.
+5. Confirma em **Table Editor** as tabelas municipais `municipal_occurrences`, `municipal_requests`, `municipal_aid_programs`, `municipal_aid_assessments` e `municipal_budget_lines`.
+6. Confirma em **Storage** o bucket privado `municipal-occurrence-photos`.
+
+## 3. Obter as chaves públicas
+
+1. Abre **Project Settings → API**.
+2. Copia o **Project URL**.
+3. Copia a **Publishable key**. Em projetos antigos pode aparecer como **anon public key**.
+4. Copia [`config.example.js`](./config.example.js) para `config.js`.
+5. Coloca o URL e a chave em `config.js`.
+
+O ficheiro `config.js` contém apenas a chave Publishable/anon, que é própria para frontend. A chave pública pode ser enviada para o GitHub, desde que as políticas RLS do `schema.sql` estejam ativas. Nunca uses a `service_role` no HTML.
+
+## 4. Configurar autenticação
+
+Em **Authentication → Providers**, ativa **Email**.
+
+### Erro `email rate limit exceeded`
+
+O servidor de email de testes do Supabase é limitado e não é indicado para criar várias contas. Quando esse limite é atingido, a aplicação não consegue enviar o email de confirmação e uma nova tentativa imediata pode continuar a falhar.
+
+Para desenvolvimento local ou demonstrações, escolhe uma destas opções:
+
+1. **Recomendado:** em **Authentication → Emails → SMTP Settings**, configura um SMTP próprio (por exemplo, Brevo, Resend, SendGrid ou outro serviço SMTP). Depois de guardar, ajusta os limites em **Authentication → Rate Limits**, se necessário.
+2. **Apenas para testes:** em **Authentication → Providers → Email**, desativa temporariamente **Confirm email**. Assim, o registo não depende do envio de email. Reativa esta opção antes de publicar a aplicação.
+
+Depois de uma falha de limite, consulta primeiro **Authentication → Users** antes de repetir o registo: o utilizador pode ter sido criado sem conseguir receber a mensagem. Se existir, usa esse utilizador e confirma/aprova o perfil em `public.profiles`.
+
+Para testes locais, em **Authentication → URL Configuration**, adiciona:
+
+- `http://localhost:5500`
+- `http://localhost:8080`
+
+Quando o GitHub Pages estiver criado, adiciona também o URL do site, por exemplo:
+
+- `https://o-teu-utilizador.github.io/mais_apoio_/`
+
+## 5. Criar o primeiro administrador
+
+1. Regista uma conta normal na aplicação.
+2. Em **Authentication → Users**, copia o UUID do utilizador.
+3. No **SQL Editor**, executa:
+
+```sql
+update public.profiles
+set role = 'admin', status = 'approved'
+where id = 'COLOCA-AQUI-O-UUID';
+```
+
+Não tornes todos os utilizadores administradores.
+
+## 6. Publicar no GitHub Pages
+
+1. Coloca `supabase/config.js` no projeto local.
+2. Ativa GitHub Pages para a branch `main` e pasta `/root`.
+3. Abre o URL publicado.
+4. Em Supabase, adiciona esse URL em **Authentication → URL Configuration**.
+5. Testa criação de conta, login, pedido de apoio e acesso administrativo.
+
+## Estado atual da integração
+
+O frontend usa Supabase Auth e as tabelas municipais quando existe uma sessão autenticada. Em modo de demonstração, as ocorrências ficam guardadas localmente no navegador até o utilizador iniciar sessão. Não existe fallback para PHP ou SQLite.
+
+## Área administrativa
+
+Abre [`admin.html`](../admin.html) para consultar ocorrências, filtrar por estado, atualizar processos e exportar CSV. Com uma sessão de administrador autenticada, os dados são lidos e atualizados diretamente no Supabase; sem sessão, é apresentado um conjunto de dados demonstrativo.
+
+Se executaste uma versão anterior do `schema.sql`, executa novamente a secção da função e trigger `handle_new_user` para que username e telefone sejam copiados dos metadados do registo.

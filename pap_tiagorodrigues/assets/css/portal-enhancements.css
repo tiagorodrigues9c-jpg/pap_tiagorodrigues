@@ -1,0 +1,76 @@
+:root{--focus:#ffb000}
+html{font-size:16px}
+body{min-width:320px}
+a,button,input,select,textarea{transition:box-shadow .2s,transform .2s,border-color .2s,background-color .2s}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+button:active,.btn:active{transform:translateY(1px)}
+.main-nav{box-shadow:0 2px 18px #1027460a}
+.main-nav .btn-outline-primary{border-color:#cddced;color:#1769d1}
+.main-nav .btn-outline-primary:hover{background:#e8f1ff}
+.overline{line-height:1.4}
+input::placeholder{color:#9aa8b7}
+.form-control,.form-select{border-color:#dbe4ec}
+.form-control:focus,.form-select:focus{border-color:#1769d1;box-shadow:0 0 0 .22rem #1769d126}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.portal-toast{position:fixed;right:20px;bottom:20px;z-index:1000;max-width:min(360px,calc(100vw - 40px));padding:14px 17px;border-radius:10px;background:#102746;color:#fff;box-shadow:0 14px 32px #10274635;font-size:.78rem;animation:toast-in .25s ease-out}
+.portal-toast i{color:#8cebd3;margin-right:8px}
+@keyframes toast-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.skip-link{position:absolute;left:12px;top:-50px;z-index:100;color:#fff;background:#102746;padding:10px 14px;border-radius:0 0 7px 7px;font-size:.75rem;font-weight:800}
+.skip-link:focus{top:0}
+@media(max-width:750px){
+  .main-nav{position:relative}
+  .main-nav .container-fluid{flex-wrap:wrap;gap:12px}
+  .main-nav .btn{font-size:.7rem;padding:.55rem .75rem}
+  h1{font-size:clamp(2.2rem,10vw,3.8rem)}
+  .portal-toast{right:12px;bottom:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+body.dark-mode{background:#0b1828;color:#eaf2f8}
+body.dark-mode .main-nav,body.dark-mode .quick-strip,body.dark-mode .metric,body.dark-mode .service-card,body.dark-mode .service-main,body.dark-mode .tracking-box,body.dark-mode .track-box,body.dark-mode .support-card,body.dark-mode .budget-card,body.dark-mode .news-card,body.dark-mode .activity,body.dark-mode .modal-content{background:#12283e;color:#eaf2f8;border-color:#304b63}
+body.dark-mode .hero{background:linear-gradient(112deg,#0f2943 0%,#122a40 57%,#123b3d 100%)}
+body.dark-mode .services-section,body.dark-mode .track-section,body.dark-mode .support-section{background:#0e2237}
+body.dark-mode h1,body.dark-mode h2,body.dark-mode h3,body.dark-mode h4,body.dark-mode h5,body.dark-mode h6,body.dark-mode strong,body.dark-mode b,body.dark-mode label,body.dark-mode .nav-link,body.dark-mode .profile-button,body.dark-mode .quick-links a{color:#eaf2f8}
+body.dark-mode p,body.dark-mode small,body.dark-mode .section-subtitle,body.dark-mode .section-intro p,body.dark-mode .service-main p,body.dark-mode .updated,body.dark-mode .muted,body.dark-mode .text-muted{color:#b9c9d7!important}
+body.dark-mode .text-dark,body.dark-mode .btn-dark{color:#f4f8fb!important}
+body.dark-mode .btn-dark{background:#1d4665;border-color:#426783}
+body.dark-mode .btn-ghost,body.dark-mode .btn-outline-dark,body.dark-mode .btn-light{background:#18344d;border-color:#42617a;color:#eaf2f8}
+body.dark-mode .btn-outline-primary{color:#8fc5ff;border-color:#5489b8}
+body.dark-mode .btn-outline-primary:hover{background:#1b4567;color:#fff}
+body.dark-mode .form-control,body.dark-mode .form-select,body.dark-mode textarea{background:#17344d;color:#f0f6fb;border-color:#42617a}
+body.dark-mode .form-control::placeholder,body.dark-mode textarea::placeholder{color:#9eb3c5}
+body.dark-mode .form-control:focus,body.dark-mode .form-select:focus{background:#1b3c58;color:#fff;border-color:#74b9ed;box-shadow:0 0 0 .22rem #74b9ed35}
+body.dark-mode .search-box{background:#193852;border-color:#42617a}
+body.dark-mode .search-box input{color:#f0f6fb}
+body.dark-mode .quick-links a:hover,body.dark-mode .activity:hover,body.dark-mode .table tbody tr:hover{background:#1a3b56}
+body.dark-mode .table{--bs-table-bg:#12283e;--bs-table-color:#eaf2f8;--bs-table-border-color:#304b63}
+body.dark-mode .table td,body.dark-mode .table th{color:#eaf2f8}
+body.dark-mode .list-group-item{background:#12283e;color:#eaf2f8;border-color:#304b63}
+body.dark-mode .alert{color:#eaf2f8;background:#18364d;border-color:#42617a}
+body.dark-mode .dropdown-menu,body.dark-mode .search-results{background:#12283e;border-color:#42617a;color:#eaf2f8}
+body.dark-mode .dropdown-item{color:#eaf2f8}
+body.dark-mode .dropdown-item:hover{background:#1a3b56;color:#fff}
+body.dark-mode .brand{color:#eaf2f8}
+body.dark-mode .brand-symbol{background:#193b5b;color:#9bcfff}
+body.dark-mode .cta-section{background:#102a44;color:#eaf2f8}
+body.dark-mode .cta-section p{color:#b9c9d7}
+body.dark-mode .portal-toast{background:#eaf2f8;color:#10243a}
+body.dark-mode .portal-toast i{color:#087d68}
+body.dark-mode .track-box{box-shadow:0 14px 35px #00000028}
+body.dark-mode .service-main{color:#17243a!important}
+body.dark-mode .service-main h2,body.dark-mode .service-main h3,body.dark-mode .service-main h4,body.dark-mode .service-main h5,body.dark-mode .service-main h6,body.dark-mode .service-main strong{color:#102746!important}
+body.dark-mode .service-main p{color:#53657a!important}
+body.dark-mode .service-main .overline,body.dark-mode .service-main .eyebrow,body.dark-mode .service-main .service-number{color:#1769d1!important}
+body.dark-mode .service-main .text-link,body.dark-mode .service-main a,body.dark-mode .service-main .service-link{color:#0c55b3!important}
+body.dark-mode .service-main .service-link i{color:#0c55b3!important}
+body.dark-mode .blue-card{background:#cfe2fb}
+body.dark-mode .green-card{background:#c9eee1}
+body.dark-mode .orange-card{background:#ffe0ad}
+body.dark-mode .service-art{background:#ffffffd9;color:#0c55b3}
+body.dark-mode .service-main .service-art i{color:#0c55b3}
+body.dark-mode .city-card,body.dark-mode .floating-notice{color:#fff}
+body.dark-mode .floating-notice b{color:#17243a}
+body.dark-mode .floating-notice small{color:#53657a}
+body.dark-mode .metric strong,body.dark-mode .metric>span{color:#eaf2f8}
+body.dark-mode .metric small{color:#b9c9d7}

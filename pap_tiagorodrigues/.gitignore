@@ -1,0 +1,6 @@
+# Configuração local do Supabase
+supabase/config.js
+
+# Ficheiros gerados localmente
+.cache/
+*.log
